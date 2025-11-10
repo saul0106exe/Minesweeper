@@ -2,11 +2,11 @@ import tkinter as tk
 import random
 
 class Minesweeper:
-    def __init__(self, master, width=10, height=10, mines=10):
+    def __init__(self, master):
         self.master = master
-        self.width = width
-        self.height = height
-        self.mines = mines
+        self.width = 10
+        self.height = 8
+        self.mines = 10
 
         self.master.title("Minesweeper")
 
@@ -20,11 +20,23 @@ class Minesweeper:
         self.control_frame = tk.Frame(self.master)
         self.control_frame.pack()
 
-        self.new_game_button = tk.Button(self.control_frame, text="New Game", command=self.new_game)
-        self.new_game_button.pack(side=tk.LEFT)
+        easy_button = tk.Button(self.control_frame, text="Easy", command=lambda: self.start_new_game(10, 8, 10))
+        easy_button.pack(side=tk.LEFT)
+
+        normal_button = tk.Button(self.control_frame, text="Normal", command=lambda: self.start_new_game(18, 14, 40))
+        normal_button.pack(side=tk.LEFT)
+
+        hard_button = tk.Button(self.control_frame, text="Hard", command=lambda: self.start_new_game(24, 20, 99))
+        hard_button.pack(side=tk.LEFT)
 
         self.status_label = tk.Label(self.control_frame, text="")
         self.status_label.pack(side=tk.LEFT)
+
+    def start_new_game(self, width, height, mines):
+        self.width = width
+        self.height = height
+        self.mines = mines
+        self.new_game()
 
     def new_game(self):
         self.game_over = False
